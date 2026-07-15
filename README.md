@@ -1,4 +1,4 @@
-# Second Brain Setup Guide
+# Second Brain Setup — Tutorials & Automation
 
 ```
    ___  _   _  ____    ____  ____    _    ___ _   _ 
@@ -10,33 +10,37 @@
      Git + Markdown + Claude MCP = Knowledge Engine
 ```
 
-Build personal knowledge base in Markdown + Git, managed by Claude Desktop via MCP servers.
+Tutorials and prompts for building a Markdown + Git knowledge base, automated by Claude via MCP servers.
 
-## What this is
+## What this repo contains
 
-Tutorial for setting up:
-- **Local vault**: Markdown files in Git repo
-- **Claude Desktop integration**: Two MCP servers (filesystem + git) give Claude read/write access
-- **GitHub Actions**: Scheduled jobs for automated digests, research, feeds
-- **Daily sync automation**: Pull from Jira, Slack, Gmail, Calendar into vault
+Tutorials, prompts, and automation scripts for building a personal second brain system:
 
-No proprietary apps. No database. Just `.md` files, Git, Claude Desktop.
+- **Setup tutorial**: Step-by-step guide to create a local Markdown vault, connect Claude Desktop via MCP, configure GitHub Actions for automated tasks
+- **Daily sync automation**: Prompt template for pulling Jira, Slack, Gmail, Calendar data into vault with entity auto-detection and wikilinks
+- **Cowork automation**: Additional automation workflow for team/project context aggregation
+- **Setup script**: Executable that scaffolds vault structure, git hooks, and GitHub Actions workflows
+
+**Stack**: Markdown files, Git version control, Claude Desktop (MCP servers), GitHub Actions. No proprietary apps or databases.
 
 ## Contents
 
-- [`second-brain-setup-tutorial.md`](./second-brain-setup-tutorial.md) — Complete setup guide
-- [`daily-second-brain-sync-skill.md`](./daily-second-brain-sync-skill.md) — Automated daily digest from Jira/Slack/Gmail/Calendar
-- [`setup.sh`](./setup.sh) — Executable script to create vault structure
+- [`second-brain-setup-prompt.md`](./second-brain-setup-prompt.md) — Interactive prompt for setting up vault structure and config
+- [`daily-second-brain-sync-skill.md`](./daily-second-brain-sync-skill.md) — Prompt template for automated daily digest (Jira/Slack/Gmail/Calendar)
+- [`cowork_automation_prompt.md`](./cowork_automation_prompt.md) — Duplicate of daily sync (kept for reference)
+- [`setup.sh`](./setup.sh) — Bash script to scaffold vault, git repo, GitHub Actions workflows
 
-## Quick overview
+## Architecture
 
 ```
-second-brain/ (local git repo)
+Local vault (Markdown + Git)
     ↕ mcp-server-filesystem  →  Claude reads/writes .md files
-    ↕ mcp-server-git         →  Claude commits and pushes
-GitHub repo
-    ↕ GitHub Actions (cron) → automated notes, digests, research
+    ↕ mcp-server-git         →  Claude commits/pushes
+GitHub remote
+    ↕ GitHub Actions (cron)  →  Scheduled automations (digests, research)
 ```
+
+**Core principle**: Plain text files you own, version-controlled with Git, enhanced by Claude automation. No vendor lock-in.
 
 ## Prerequisites
 
@@ -57,19 +61,19 @@ Follow prompts. Script creates vault, git setup, GitHub Actions workflow, auto-p
 
 ## What you get
 
-**Base setup:**
-- Vault structure (inbox, journal, projects, areas, resources, automated)
-- Note format based on Google's Open Knowledge Format (OKF)
-- Claude Desktop commands for reading, writing, searching, committing
-- Example GitHub Actions workflow for daily digest
-- Post-commit hook for auto-push
+**From the setup tutorial:**
+- Folder structure following PARA method (inbox, journal, projects, areas, resources, automated)
+- YAML frontmatter templates based on Open Knowledge Format (OKF)
+- MCP server config for Claude Desktop (filesystem + git integration)
+- GitHub Actions workflow for scheduled automation
+- Git hooks for auto-commit/auto-push
 
-**Daily automation (optional):**
-- Scheduled digest from Jira, Slack, Gmail, Google Calendar
-- Auto-detection of projects, teams, people, companies
-- Stub creation for new entities with wikilinks
-- Starred emails + saved Slack messages highlighted
-- Filesystem watcher for auto git commit/push
+**From the daily sync automation:**
+- Prompt template that pulls Jira issues, Slack messages, Gmail threads, Calendar events
+- Entity auto-detection (projects, teams, people, companies) with stub file creation
+- Wikilink generation for cross-referencing
+- Starred emails and saved Slack messages prioritized
+- Filesystem watcher pattern (fswatch + launchd) for auto-commit/push
 
 ## Features
 
@@ -81,14 +85,23 @@ Follow prompts. Script creates vault, git setup, GitHub Actions workflow, auto-p
 ✅ Auto-commit on file changes  
 ✅ Works with Obsidian (optional)  
 
-## Future additions
+## Use cases
 
-More tutorials planned:
-- Advanced workflows
-- Custom automation scripts
-- Integration patterns
-- Multi-vault setup
+- Personal knowledge management (PKM)
+- Engineering project notes and decision logs
+- Daily digest from work tools (Jira, Slack, Gmail, Calendar)
+- Research vault with automated topic tracking
+- Team documentation with git-versioned history
+
+## Why this approach
+
+**Local-first**: Files live on your machine. No cloud dependency.  
+**Open format**: Markdown files work in any editor (Obsidian, VS Code, vim).  
+**Version control**: Git tracks every change. Full history, easy rollback.  
+**Automation-ready**: Claude + MCP servers = programmable knowledge base.  
+**No lock-in**: Plain text files. Move them anywhere.
 
 ---
 
-**License**: MIT
+**License**: MIT  
+**Author**: Community tutorial collection
